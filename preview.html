@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Preview</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <button class="back-button" onclick="window.location.href='submit.html'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">SearchPal</div>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='submit.html'">Submit a Tool</button>
+            <button class="btn btn-primary" onclick="window.location.href='login.html'">Sign in</button>
+        </div>
+    </nav>
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-step completed">
+                <div class="step-number">✓</div>
+                <div class="step-label">Submit Tool</div>
+            </div>
+            <div class="progress-step active">
+                <div class="step-number">2</div>
+                <div class="step-label">Preview</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">3</div>
+                <div class="step-label">Checkout</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="preview-container">
+        <div class="review-banner">
+            <svg class="review-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <div class="review-text">
+                <h3>Review Your AI-Generated Listing</h3>
+                <p>Please review your tool listing carefully. Our AI has generated the content based on your submission. Once you confirm, our team will review your submission within 48 hours to ensure quality standards. You'll receive an email notification when your tool is approved and published.</p>
+            </div>
+        </div>
+
+        <div class="tool-preview">
+            <div class="tool-header">
+                <div class="tool-title">
+                    <h2 id="previewToolName">Tool Name</h2>
+                    <p id="previewToolLink"><a href="#" target="_blank"></a></p>
+                </div>
+                <div class="tool-meta">
+                    <div class="rating">★★★★☆</div>
+                    <div>4.5/5 Rating</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Overview</h3>
+                <p id="previewDescription"></p>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Top Features</h3>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <span class="feature-icon">⚡</span>
+                        <div>
+                            <strong>Fast Integration</strong>
+                            <p>Quick and easy setup process</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔒</span>
+                        <div>
+                            <strong>Secure</strong>
+                            <p>Enterprise-grade security</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <div>
+                            <strong>Analytics</strong>
+                            <p>Detailed insights and reporting</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔄</span>
+                        <div>
+                            <strong>Automation</strong>
+                            <p>Streamlined workflows</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Pricing</h3>
+                <div class="pricing-tiers">
+                    <div class="pricing-tier">
+                        <h4>Starter</h4>
+                        <div class="tier-price">$29/mo</div>
+                        <ul>
+                            <li>Basic features</li>
+                            <li>2 users</li>
+                            <li>5GB storage</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-tier">
+                        <h4>Professional</h4>
+                        <div class="tier-price">$99/mo</div>
+                        <ul>
+                            <li>Advanced features</li>
+                            <li>10 users</li>
+                            <li>50GB storage</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-tier">
+                        <h4>Enterprise</h4>
+                        <div class="tier-price">Custom</div>
+                        <ul>
+                            <li>All features</li>
+                            <li>Unlimited users</li>
+                            <li>Custom storage</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Pros & Cons</h3>
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Pros</h4>
+                        <ul>
+                            <li>Easy to use interface</li>
+                            <li>Comprehensive documentation</li>
+                            <li>Excellent customer support</li>
+                            <li>Regular updates</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>× Cons</h4>
+                        <ul>
+                            <li>Limited free tier</li>
+                            <li>Learning curve for advanced features</li>
+                            <li>Some features require paid plans</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview-actions">
+            <button class="btn btn-secondary" id="editButton">Edit</button>
+            <button class="btn btn-primary" onclick="window.location.href='pricing.html'">Confirm & Publish</button>
+        </div>
+
+        <!-- Edit Panel -->
+        <div class="edit-panel" id="editPanel">
+            <div class="edit-panel-header">
+                <h2>Edit Tool Listing</h2>
+                <button class="close-button" onclick="closeEditPanel()">&times;</button>
+            </div>
+            <div class="edit-panel-content">
+                <form id="editForm">
+                    <div class="form-section">
+                        <h3>Basic Information</h3>
+                        <div class="form-group">
+                            <label for="toolName">Tool Name</label>
+                            <input type="text" id="toolName" value="DevTool Pro">
+                        </div>
+                        <div class="form-group">
+                            <label for="toolUrl">Website URL</label>
+                            <input type="url" id="toolUrl" value="https://devtoolpro.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" rows="4">A comprehensive development tool that helps teams streamline their workflow.</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Features</h3>
+                        <div id="featuresContainer">
+                            <div class="feature-edit">
+                                <div class="feature-edit-header">
+                                    <span class="feature-icon-input">⚡</span>
+                                    <input type="text" value="Fast Integration" placeholder="Feature title">
+                                    <button type="button" class="btn-icon" onclick="removeFeature(this)">×</button>
+                                </div>
+                                <textarea placeholder="Feature description">Quick and easy setup process</textarea>
+                            </div>
+                            <div class="feature-edit">
+                                <div class="feature-edit-header">
+                                    <span class="feature-icon-input">🔒</span>
+                                    <input type="text" value="Secure" placeholder="Feature title">
+                                    <button type="button" class="btn-icon" onclick="removeFeature(this)">×</button>
+                                </div>
+                                <textarea placeholder="Feature description">Enterprise-grade security</textarea>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addFeature()">+ Add Feature</button>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Pros & Cons</h3>
+                        <div class="pros-cons-edit">
+                            <div class="pros-edit">
+                                <h4>Pros</h4>
+                                <div id="prosContainer">
+                                    <div class="list-item-edit">
+                                        <input type="text" value="Easy to use interface">
+                                        <button type="button" class="btn-icon" onclick="removeListItem(this)">×</button>
+                                    </div>
+                                    <div class="list-item-edit">
+                                        <input type="text" value="Comprehensive documentation">
+                                        <button type="button" class="btn-icon" onclick="removeListItem(this)">×</button>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary" onclick="addPro()">+ Add Pro</button>
+                            </div>
+                            <div class="cons-edit">
+                                <h4>Cons</h4>
+                                <div id="consContainer">
+                                    <div class="list-item-edit">
+                                        <input type="text" value="Limited free tier">
+                                        <button type="button" class="btn-icon" onclick="removeListItem(this)">×</button>
+                                    </div>
+                                    <div class="list-item-edit">
+                                        <input type="text" value="Learning curve for advanced features">
+                                        <button type="button" class="btn-icon" onclick="removeListItem(this)">×</button>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-secondary" onclick="addCon()">+ Add Con</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="edit-panel-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeEditPanel()">Cancel</button>
+                <button type="submit" class="btn btn-primary" form="editForm">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Edit Panel Styles */
+        .edit-panel {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 500px;
+            height: 100vh;
+            background: white;
+            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .edit-panel.show {
+            right: 0;
+        }
+
+        .edit-panel-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edit-panel-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .edit-panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .edit-panel-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            background: white;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+
+        .feature-edit {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-edit-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-icon-input {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .feature-edit-header input {
+            flex: 1;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 0.5rem;
+        }
+
+        .btn-icon:hover {
+            color: var(--text-primary);
+        }
+
+        .list-item-edit {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .list-item-edit input {
+            flex: 1;
+        }
+
+        .pros-cons-edit {
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @media (max-width: 768px) {
+            .edit-panel {
+                width: 100%;
+                right: -100%;
+            }
+
+            .pros-cons-edit {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* Rest of existing styles */
+
+        /* Add at the top of existing styles */
+        .progress-container {
+            background: white;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .progress-step.active .step-number {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .progress-step.active .step-label {
+            color: var(--primary);
+        }
+
+        .progress-step.completed .step-number {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .progress-bar {
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+
+    <script>
+        // Get panel elements
+        const editPanel = document.getElementById('editPanel');
+        const editButton = document.getElementById('editButton');
+
+        // Open panel when edit button is clicked
+        editButton.addEventListener('click', () => {
+            editPanel.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+
+        // Close panel function
+        function closeEditPanel() {
+            editPanel.classList.remove('show');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
+        // Add feature function
+        function addFeature() {
+            const container = document.getElementById('featuresContainer');
+            const featureDiv = document.createElement('div');
+            featureDiv.className = 'feature-edit';
+            featureDiv.innerHTML = `
+                <div class="feature-edit-header">
+                    <span class="feature-icon-input">✨</span>
+                    <input type="text" placeholder="Feature title">
+                    <button type="button" class="btn-icon" onclick="removeFeature(this)">×</button>
+                </div>
+                <textarea placeholder="Feature description"></textarea>
+            `;
+            container.appendChild(featureDiv);
+        }
+
+        // Remove feature function
+        function removeFeature(button) {
+            button.closest('.feature-edit').remove();
+        }
+
+        // Add pro function
+        function addPro() {
+            const container = document.getElementById('prosContainer');
+            const proDiv = document.createElement('div');
+            proDiv.className = 'list-item-edit';
+            proDiv.innerHTML = `
+                <input type="text" placeholder="Add a pro">
+                <button type="button" class="btn-icon" onclick="removeListItem(this)">×</button>
+            `;
+            container.appendChild(proDiv);
+        }
+
+        // Add con function
+        function addCon() {
+            const container = document.getElementById('consContainer');
+            const conDiv = document.createElement('div');
+            conDiv.className = 'list-item-edit';
+            conDiv.innerHTML = `
+                <input type="text" placeholder="Add a con">
+                <button type="button" class="btn-icon" onclick="removeListItem(this)">×</button>
+            `;
+            container.appendChild(conDiv);
+        }
+
+        // Remove list item function
+        function removeListItem(button) {
+            button.closest('.list-item-edit').remove();
+        }
+
+        // Handle form submission
+        document.getElementById('editForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Here you would typically save the changes
+            closeEditPanel();
+            // Show success message or update preview
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Tool - ToolDirectory</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .metrics-bar {
+            background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
+            padding: 2.5rem 1.5rem;
+            margin-bottom: 3rem;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .metric-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .submit-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .submit-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .submit-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .submit-form {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 3rem;
+        }
+
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-section h3 {
+            color: #2962ff;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2962ff;
+            box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.1);
+        }
+
+        .form-help {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+
+        .submit-button {
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+
+        .submit-button button {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .submit-button button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(41, 98, 255, 0.25);
+        }
+
+        .listing-example {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 3rem;
+        }
+
+        .listing-example h2 {
+            color: #2962ff;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .example-preview {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+
+        .tool-preview {
+            margin-bottom: 2rem;
+        }
+
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tool-title h4 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .tool-meta {
+            text-align: right;
+        }
+
+        .rating {
+            color: #f59e0b;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        .section-title {
+            color: #2962ff;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .feature-icon {
+            color: #2962ff;
+            font-size: 1.25rem;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .pros, .cons {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .pros h4, .cons h4 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .pros h4 { color: #059669; }
+        .cons h4 { color: #dc2626; }
+
+        .pros-cons ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pros-cons li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .pros li::before {
+            content: "✓";
+            color: #059669;
+            position: absolute;
+            left: 0;
+        }
+
+        .cons li::before {
+            content: "×";
+            color: #dc2626;
+            position: absolute;
+            left: 0;
+        }
+
+        .pricing-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .pricing-tier {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+        }
+
+        .tier-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            color: #2962ff;
+        }
+
+        .faq-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .faq-section h2 {
+            color: #2962ff;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #1e293b;
+            font-size: 1.1rem;
+        }
+
+        .faq-answer {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .metrics-grid {
+                gap: 1.5rem;
+            }
+
+            .submit-container {
+                padding: 0 1rem;
+            }
+
+            .submit-form,
+            .listing-example,
+            .faq-section {
+                padding: 1.5rem;
+            }
+
+            .pros-cons {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            color: #64748b;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            color: var(--primary-color);
+        }
+
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+        }
+
+        /* Update navbar to accommodate back button */
+        .navbar {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Success Notification Styles */
+        .notification-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .notification-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .notification {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification-overlay.show .notification {
+            transform: translateY(0);
+        }
+
+        .notification-icon {
+            width: 48px;
+            height: 48px;
+            background: #ecfdf5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .notification-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #059669;
+        }
+
+        .notification-title {
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-message {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+
+        .notification-button {
+            background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .notification-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(41, 98, 255, 0.25);
+        }
+
+        /* Metrics Section */
+        .metrics-section {
+            background: linear-gradient(135deg, #2962ff08 0%, #1e4bd808 100%);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .metrics-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .metrics-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .metric-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+        }
+
+        .metric-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .metric-comparison {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-before, .metric-after {
+            flex: 1;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1;
+        }
+
+        .metric-value.before {
+            color: #64748b;
+        }
+
+        .metric-value.after {
+            color: #2962ff;
+        }
+
+        .metric-arrow {
+            color: #2962ff;
+            display: flex;
+            align-items: center;
+        }
+
+        .metric-arrow svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        .metric-timeframe {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .success-stories {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .story-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .story-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-logo {
+            width: 48px;
+            height: 48px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .story-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .story-metric {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .story-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2962ff;
+        }
+
+        .story-label {
+            color: #64748b;
+        }
+
+        .review-notice {
+            background: linear-gradient(135deg, #2962ff08 0%, #1e4bd808 100%);
+            border: 1px solid #2962ff20;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .notice-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .notice-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .notice-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Add at the top of existing styles */
+        .progress-container {
+            background: white;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .progress-step.active .step-number {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .progress-step.active .step-label {
+            color: var(--primary);
+        }
+
+        .progress-step.completed .step-number {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .progress-bar {
+                max-width: 100%;
+                padding: 0 1rem;
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <button class="back-button" onclick="window.location.href='index.html'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">SearchPal</div>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='submit.html'">Submit a Tool</button>
+            <button class="btn btn-primary" onclick="window.location.href='login.html'">Sign in</button>
+        </div>
+    </nav>
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-step active">
+                <div class="step-number">1</div>
+                <div class="step-label">Submit Tool</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">2</div>
+                <div class="step-label">Preview</div>
+            </div>
+            <div class="progress-step">
+                <div class="step-number">3</div>
+                <div class="step-label">Checkout</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Original Metrics Bar -->
+        <div class="metrics-bar">
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">1.8M+</div>
+                    <div class="metric-label">Monthly Impressions</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">192k+</div>
+                    <div class="metric-label">Monthly Clicks</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">43 DR+</div>
+                    <div class="metric-label">According to Ahrefs</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Submit Form Section -->
+        <div class="submit-container">
+            <div class="submit-header">
+                <h1>Submit Your Tool</h1>
+                <p>Get your tool in front of thousands of developers</p>
+            </div>
+
+            <div class="review-notice">
+                <div class="notice-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                </div>
+                <div class="notice-content">
+                    <h3>Review Process</h3>
+                    <p>All submissions are reviewed by the SearchPal team to ensure quality and relevance. This process typically takes up to 48 hours. You'll receive an email notification once your tool is approved.</p>
+                </div>
+            </div>
+
+            <form id="toolSubmissionForm" class="submit-form">
+                <div class="form-group">
+                    <label for="toolName">Tool Name</label>
+                    <input type="text" id="toolName" name="toolName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="toolLink">Tool Website</label>
+                    <input type="url" id="toolLink" name="toolLink" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Contact Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary submit-button">Submit Tool</button>
+            </form>
+        </div>
+
+        <!-- Tool Listing Example -->
+        <div class="listing-example">
+            <h2>How Your Tool Will Be Listed</h2>
+            <div class="example-preview">
+                <div class="tool-header">
+                    <div class="tool-title">
+                        <h4>DevTool Pro</h4>
+                        <p><a href="#" target="_blank">https://devtoolpro.com</a></p>
+                    </div>
+                    <div class="tool-meta">
+                        <div class="rating">★★★★☆</div>
+                        <div>4.5/5 Rating</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Overview</h3>
+                    <p>A comprehensive development tool that helps teams streamline their workflow. Features include automated testing, code quality checks, and real-time collaboration.</p>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Top Features</h3>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <span class="feature-icon">⚡</span>
+                            <div>
+                                <strong>Fast Integration</strong>
+                                <p>Quick and easy setup process</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">��</span>
+                            <div>
+                                <strong>Secure</strong>
+                                <p>Enterprise-grade security</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📊</span>
+                            <div>
+                                <strong>Analytics</strong>
+                                <p>Detailed insights and reporting</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🔄</span>
+                            <div>
+                                <strong>Automation</strong>
+                                <p>Streamlined workflows</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Pricing</h3>
+                    <div class="pricing-tiers">
+                        <div class="pricing-tier">
+                            <h4>Starter</h4>
+                            <div class="tier-price">$29/mo</div>
+                            <ul>
+                                <li>Basic features</li>
+                                <li>2 users</li>
+                                <li>5GB storage</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-tier">
+                            <h4>Professional</h4>
+                            <div class="tier-price">$99/mo</div>
+                            <ul>
+                                <li>Advanced features</li>
+                                <li>10 users</li>
+                                <li>50GB storage</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-tier">
+                            <h4>Enterprise</h4>
+                            <div class="tier-price">Custom</div>
+                            <ul>
+                                <li>All features</li>
+                                <li>Unlimited users</li>
+                                <li>Custom storage</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3 class="section-title">Pros & Cons</h3>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✓ Pros</h4>
+                            <ul>
+                                <li>Easy to use interface</li>
+                                <li>Comprehensive documentation</li>
+                                <li>Excellent customer support</li>
+                                <li>Regular updates</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>× Cons</h4>
+                            <ul>
+                                <li>Limited free tier</li>
+                                <li>Learning curve for advanced features</li>
+                                <li>Some features require paid plans</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Stories Section -->
+        <section class="metrics-section">
+            <h2 class="metrics-title">Success Stories</h2>
+            <p class="metrics-subtitle">See how tools grow after listing on SearchPal</p>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                        </div>
+                        <h3 class="metric-title">Domain Rating</h3>
+                    </div>
+                    <div class="metric-comparison">
+                        <div class="metric-before">
+                            <div class="metric-label">Before</div>
+                            <div class="metric-value before">32</div>
+                        </div>
+                        <div class="metric-arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </div>
+                        <div class="metric-after">
+                            <div class="metric-label">After</div>
+                            <div class="metric-value after">48</div>
+                        </div>
+                    </div>
+                    <div class="metric-timeframe">Average increase after 3 months</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 3v18h18"/>
+                                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                            </svg>
+                        </div>
+                        <h3 class="metric-title">Monthly Traffic</h3>
+                    </div>
+                    <div class="metric-comparison">
+                        <div class="metric-before">
+                            <div class="metric-label">Before</div>
+                            <div class="metric-value before">5K</div>
+                        </div>
+                        <div class="metric-arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </div>
+                        <div class="metric-after">
+                            <div class="metric-label">After</div>
+                            <div class="metric-value after">15K</div>
+                        </div>
+                    </div>
+                    <div class="metric-timeframe">Average increase after 3 months</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <h3 class="metric-title">User Engagement</h3>
+                    </div>
+                    <div class="metric-comparison">
+                        <div class="metric-before">
+                            <div class="metric-label">Before</div>
+                            <div class="metric-value before">2.1m</div>
+                        </div>
+                        <div class="metric-arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </div>
+                        <div class="metric-after">
+                            <div class="metric-label">After</div>
+                            <div class="metric-value after">4.8m</div>
+                        </div>
+                    </div>
+                    <div class="metric-timeframe">Average increase after 3 months</div>
+                </div>
+            </div>
+
+            <div class="success-stories">
+                <h3 class="section-title">Featured Success Stories</h3>
+                <div class="story-grid">
+                    <div class="story-card">
+                        <div class="story-header">
+                            <div class="story-logo">🚀</div>
+                            <div>
+                                <div class="story-title">RocketTools</div>
+                                <div class="story-label">AI Development Platform</div>
+                            </div>
+                        </div>
+                        <p>"After listing on SearchPal, our organic traffic doubled in just 2 months. The quality of leads also improved significantly."</p>
+                        <div class="story-metric">
+                            <span class="story-value">127%</span>
+                            <span class="story-label">increase in qualified leads</span>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-header">
+                            <div class="story-logo">⚡</div>
+                            <div>
+                                <div class="story-title">FastAI</div>
+                                <div class="story-label">AI Code Assistant</div>
+                            </div>
+                        </div>
+                        <p>"SearchPal helped us reach developers we couldn't reach before. Our trial signups increased dramatically."</p>
+                        <div class="story-metric">
+                            <span class="story-value">85%</span>
+                            <span class="story-label">increase in trial signups</span>
+                        </div>
+                    </div>
+
+                    <div class="story-card">
+                        <div class="story-header">
+                            <div class="story-logo">��</div>
+                            <div>
+                                <div class="story-title">AITarget</div>
+                                <div class="story-label">Marketing AI Platform</div>
+                            </div>
+                        </div>
+                        <p>"The exposure from SearchPal helped us establish our brand in the AI space. Our conversion rates improved significantly."</p>
+                        <div class="story-metric">
+                            <span class="story-value">93%</span>
+                            <span class="story-label">increase in conversions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">How long does the review process take?</div>
+                    <div class="faq-answer">Most submissions are reviewed within 2-3 business days. We'll notify you via email once your tool is approved.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What happens after I submit?</div>
+                    <div class="faq-answer">After submission, we'll review your tool, create a listing preview, and send it to you for approval before publishing.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I edit my listing later?</div>
+                    <div class="faq-answer">Yes, you can edit your listing anytime through your dashboard after verifying your email.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do you provide analytics for my listing?</div>
+                    <div class="faq-answer">Yes, all listings come with basic analytics including views, clicks, and engagement metrics. Premium listings get access to advanced analytics.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add notification overlay -->
+        <div class="notification-overlay" id="successNotification">
+            <div class="notification">
+                <div class="notification-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <div class="notification-title">Submission Successful!</div>
+                <div class="notification-message">
+                    Your tool listing is being generated! Check your email to verify your account and access your dashboard.
+                </div>
+                <button class="notification-button" onclick="proceedToPreview()">Continue</button>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('toolSubmissionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    toolName: document.getElementById('toolName').value,
+                    toolLink: document.getElementById('toolLink').value,
+                    description: document.getElementById('description').value,
+                    email: document.getElementById('email').value
+                };
+
+                console.log('Form submitted:', formData);
+                
+                // Show notification
+                const notification = document.getElementById('successNotification');
+                notification.classList.add('show');
+            });
+
+            function proceedToPreview() {
+                window.location.href = 'preview.html';
+            }
+        </script>
+    </div>
+</body>
+</html> 

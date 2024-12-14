@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SearchPal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .dashboard-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 1rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            background: rgba(41, 98, 255, 0.1);
+        }
+
+        .tab-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            border-radius: 12px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.875rem;
+            margin-left: 0.5rem;
+        }
+
+        .tab.active .tab-count {
+            background: var(--primary);
+            color: white;
+        }
+
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .listing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .listing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .listing-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .listing-url {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-decoration: none;
+        }
+
+        .listing-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-draft {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .listing-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .stat-item {
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .listing-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-button {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+        }
+
+        .action-button:hover {
+            background: #f8fafc;
+            color: var(--text-primary);
+        }
+
+        .boost-button {
+            flex: 1 0 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #2962ff08 0%, #1e4bd808 100%);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .boost-button:hover {
+            background: linear-gradient(135deg, #2962ff15 0%, #1e4bd815 100%);
+            transform: translateY(-1px);
+        }
+
+        .boost-button svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+        }
+
+        .boost-badge {
+            position: absolute;
+            top: 0;
+            right: 1rem;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #2962ff 0%, #1e4bd8 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .empty-state svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .submit-card {
+            background: linear-gradient(135deg, #2962ff08 0%, #1e4bd808 100%);
+            border: 2px dashed #2962ff40;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-card:hover {
+            background: linear-gradient(135deg, #2962ff10 0%, #1e4bd810 100%);
+            border-color: #2962ff60;
+        }
+
+        .submit-content {
+            text-align: center;
+        }
+
+        .submit-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            box-shadow: 0 4px 6px rgba(41, 98, 255, 0.1);
+        }
+
+        .submit-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+        }
+
+        .submit-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .submit-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .listing-message {
+            background: #fef3c710;
+            border: 1px solid #fef3c750;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+
+        .message-icon {
+            width: 20px;
+            height: 20px;
+            color: #92400e;
+            flex-shrink: 0;
+        }
+
+        .message-title {
+            color: #92400e;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .message-text {
+            color: #92400e90;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <button class="back-button" onclick="window.location.href='index.html'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">SearchPal</div>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='submit.html'">Submit Another Tool</button>
+            <button class="btn btn-primary" onclick="window.location.href='index.html'">Sign Out</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="dashboard-header">
+            <h1>Your Tools</h1>
+            <p class="dashboard-subtitle">Manage and monitor your tool listings</p>
+        </div>
+
+        <div class="metrics-bar">
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value">24.5k</div>
+                    <div class="metric-label">Total Views</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">1.8k</div>
+                    <div class="metric-label">Total Clicks</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-value">4.2%</div>
+                    <div class="metric-label">Click Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-tabs">
+            <div class="tab active">
+                All <span class="tab-count">6</span>
+            </div>
+            <div class="tab">
+                Active <span class="tab-count">3</span>
+            </div>
+            <div class="tab">
+                Pending <span class="tab-count">2</span>
+            </div>
+            <div class="tab">
+                Draft <span class="tab-count">1</span>
+            </div>
+        </div>
+
+        <!-- Add new All Listings section -->
+        <div class="listings-grid">
+            <!-- Active Tools -->
+            <div class="listing-card">
+                <div class="listing-header">
+                    <div>
+                        <div class="listing-title">DevTool Pro</div>
+                        <a href="#" class="listing-url">devtoolpro.com</a>
+                    </div>
+                    <span class="listing-status status-active">Active</span>
+                </div>
+                <div class="listing-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">8.2k</div>
+                        <div class="stat-label">Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">642</div>
+                        <div class="stat-label">Clicks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">7.8%</div>
+                        <div class="stat-label">CTR</div>
+                    </div>
+                </div>
+                <div class="listing-actions">
+                    <button class="action-button">Edit</button>
+                    <button class="action-button">Analytics</button>
+                    <button class="action-button">Settings</button>
+                    <button class="boost-button" onclick="window.location.href='boost.html'">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                        Boost Tool
+                    </button>
+                </div>
+            </div>
+
+            <div class="listing-card">
+                <div class="listing-header">
+                    <div>
+                        <div class="listing-title">CodeAssist AI</div>
+                        <a href="#" class="listing-url">codeassist.ai</a>
+                    </div>
+                    <span class="listing-status status-active">Active</span>
+                </div>
+                <div class="listing-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">12.1k</div>
+                        <div class="stat-label">Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">891</div>
+                        <div class="stat-label">Clicks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">7.4%</div>
+                        <div class="stat-label">CTR</div>
+                    </div>
+                </div>
+                <div class="listing-actions">
+                    <button class="action-button">Edit</button>
+                    <button class="action-button">Analytics</button>
+                    <button class="action-button">Settings</button>
+                    <button class="boost-button" onclick="window.location.href='boost.html'">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                        Boost Tool
+                    </button>
+                </div>
+            </div>
+
+            <div class="listing-card">
+                <div class="listing-header">
+                    <div>
+                        <div class="listing-title">TestRunner</div>
+                        <a href="#" class="listing-url">testrunner.dev</a>
+                    </div>
+                    <span class="listing-status status-active">Active</span>
+                </div>
+                <div class="listing-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">4.2k</div>
+                        <div class="stat-label">Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">267</div>
+                        <div class="stat-label">Clicks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">6.4%</div>
+                        <div class="stat-label">CTR</div>
+                    </div>
+                </div>
+                <div class="listing-actions">
+                    <button class="action-button">Edit</button>
+                    <button class="action-button">Analytics</button>
+                    <button class="action-button">Settings</button>
+                    <button class="boost-button" onclick="window.location.href='boost.html'">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                        Boost Tool
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pending Tools -->
+            <div class="listing-card">
+                <div class="listing-header">
+                    <div>
+                        <div class="listing-title">CloudDeploy</div>
+                        <a href="#" class="listing-url">clouddeploy.io</a>
+                    </div>
+                    <span class="listing-status status-pending">Pending</span>
+                </div>
+                <div class="listing-message">
+                    <svg class="message-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <div>
+                        <p class="message-title">Under Review</p>
+                        <p class="message-text">Our team is reviewing your submission to ensure quality standards. This typically takes up to 48 hours.</p>
+                    </div>
+                </div>
+                <div class="listing-actions">
+                    <button class="action-button">Preview</button>
+                    <button class="action-button">Edit</button>
+                    <button class="action-button">Cancel</button>
+                </div>
+            </div>
+
+            <div class="listing-card">
+                <div class="listing-header">
+                    <div>
+                        <div class="listing-title">DataViz Pro</div>
+                        <a href="#" class="listing-url">datavizpro.com</a>
+                    </div>
+                    <span class="listing-status status-pending">Pending</span>
+                </div>
+                <div class="listing-message">
+                    <svg class="message-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <div>
+                        <p class="message-title">Under Review</p>
+                        <p class="message-text">Our team is reviewing your submission to ensure quality standards. This typically takes up to 48 hours.</p>
+                    </div>
+                </div>
+                <div class="listing-actions">
+                    <button class="action-button">Preview</button>
+                    <button class="action-button">Edit</button>
+                    <button class="action-button">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Draft Tool -->
+            <div class="listing-card">
+                <div class="listing-header">
+                    <div>
+                        <div class="listing-title">APITester</div>
+                        <a href="#" class="listing-url">apitester.dev</a>
+                    </div>
+                    <span class="listing-status status-draft">Draft</span>
+                </div>
+                <p class="listing-message">Last edited 2 days ago</p>
+                <div class="listing-actions">
+                    <button class="action-button">Continue Editing</button>
+                    <button class="action-button">Preview</button>
+                    <button class="action-button">Delete</button>
+                </div>
+            </div>
+
+            <!-- Submit New Tool Card -->
+            <div class="listing-card submit-card">
+                <div class="submit-content">
+                    <div class="submit-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </div>
+                    <h3>Submit New Tool</h3>
+                    <p>Add another tool to your listings</p>
+                    <button class="btn btn-primary" onclick="window.location.href='submit.html'" style="margin-top: 1rem;">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update other sections to be hidden by default -->
+        <div class="listings-grid" style="display: none;">
+            <!-- Active listings content -->
+        </div>
+
+        <div class="listings-grid" style="display: none;">
+            <!-- Pending listings content -->
+        </div>
+
+        <div class="listings-grid" style="display: none;">
+            <!-- Draft listings content -->
+        </div>
+    </main>
+
+    <script>
+        // Simple tab switching functionality
+        document.querySelectorAll('.tab').forEach((tab, index) => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                // Hide all listing grids
+                document.querySelectorAll('.listings-grid').forEach(grid => grid.style.display = 'none');
+                // Show the selected grid
+                document.querySelectorAll('.listings-grid')[index].style.display = 'grid';
+            });
+        });
+    </script>
+</body>
+</html> 

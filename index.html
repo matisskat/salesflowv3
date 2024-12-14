@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SearchPal - List Your Tool Where Developers Find It</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">SearchPal</div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='submit.html'">Submit a Tool</button>
+            <button class="btn btn-primary" onclick="window.location.href='login.html'">Sign in</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero-section">
+            <h1>List Your Tool Where Developers Find It</h1>
+            <p class="hero-subtitle">Join thousands of tools helping developers build better software</p>
+            <button class="btn btn-primary cta-button" onclick="window.location.href='submit.html'">Submit Your Tool</button>
+        </section>
+
+        <section class="tools-directory">
+            <div class="directory-header">
+                <h2>Popular Developer Tools</h2>
+                <div class="directory-filters">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">AI & ML</button>
+                    <button class="filter-btn">DevOps</button>
+                    <button class="filter-btn">Testing</button>
+                    <button class="filter-btn">Productivity</button>
+                </div>
+            </div>
+
+            <div class="tools-grid">
+                <!-- Tool Card 1 -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🤖</div>
+                        <div class="tool-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-count">4.9</span>
+                        </div>
+                    </div>
+                    <h3>CodePilot AI</h3>
+                    <p class="tool-description">Advanced AI code assistant that helps developers write better code faster with real-time suggestions and auto-completion.</p>
+                    <div class="tool-tags">
+                        <span class="tag">AI</span>
+                        <span class="tag">Productivity</span>
+                        <span class="tag">Code Assistant</span>
+                    </div>
+                    <div class="tool-metrics">
+                        <div class="metric">
+                            <span class="metric-value">50k+</span>
+                            <span class="metric-label">Users</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">4.9</span>
+                            <span class="metric-label">Rating</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Card 2 -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🚀</div>
+                        <div class="tool-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-count">4.8</span>
+                        </div>
+                    </div>
+                    <h3>DeployMaster</h3>
+                    <p class="tool-description">Streamline your deployment process with automated workflows, monitoring, and instant rollbacks.</p>
+                    <div class="tool-tags">
+                        <span class="tag">DevOps</span>
+                        <span class="tag">CI/CD</span>
+                        <span class="tag">Cloud</span>
+                    </div>
+                    <div class="tool-metrics">
+                        <div class="metric">
+                            <span class="metric-value">35k+</span>
+                            <span class="metric-label">Users</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">4.8</span>
+                            <span class="metric-label">Rating</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Card 3 -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">🎯</div>
+                        <div class="tool-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-count">4.7</span>
+                        </div>
+                    </div>
+                    <h3>TestPro</h3>
+                    <p class="tool-description">Comprehensive testing platform with AI-powered test generation and automated regression testing.</p>
+                    <div class="tool-tags">
+                        <span class="tag">Testing</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">QA</span>
+                    </div>
+                    <div class="tool-metrics">
+                        <div class="metric">
+                            <span class="metric-value">28k+</span>
+                            <span class="metric-label">Users</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">4.7</span>
+                            <span class="metric-label">Rating</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Card 4 -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon">⚡</div>
+                        <div class="tool-rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="rating-count">4.6</span>
+                        </div>
+                    </div>
+                    <h3>SpeedBoost</h3>
+                    <p class="tool-description">Performance optimization toolkit for web applications with real-time monitoring and suggestions.</p>
+                    <div class="tool-tags">
+                        <span class="tag">Performance</span>
+                        <span class="tag">Optimization</span>
+                        <span class="tag">Web</span>
+                    </div>
+                    <div class="tool-metrics">
+                        <div class="metric">
+                            <span class="metric-value">42k+</span>
+                            <span class="metric-label">Users</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">4.6</span>
+                            <span class="metric-label">Rating</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="load-more">
+                <button class="btn btn-secondary">Load More Tools</button>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <h2 class="section-title">Why List with SearchPal?</h2>
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Reach More Developers</h3>
+                    <p>Get your tool in front of thousands of developers actively looking for solutions.</p>
+                </div>
+                <div class="card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Boost Your Traffic</h3>
+                    <p>Our listings drive qualified traffic directly to your tool's website.</p>
+                </div>
+                <div class="card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Target Your Audience</h3>
+                    <p>Connect with developers who are specifically looking for tools like yours.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            font-size: 1.25rem;
+            padding: 1rem 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .features-section {
+            padding: 4rem 0;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+        }
+
+        /* Tools Directory Styles */
+        .tools-directory {
+            margin: 4rem 0;
+        }
+
+        .directory-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .directory-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .tool-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+        }
+
+        .tool-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        .rating-count {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .tool-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .tool-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .tool-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-light);
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .tool-metrics {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .tool-metrics .metric {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-metrics .metric-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .tool-metrics .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .load-more {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .directory-filters {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html> 

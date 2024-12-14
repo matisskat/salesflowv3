@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boost Your Tool - SearchPal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .boost-header {
+            text-align: center;
+            margin: 2rem 0 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #2962ff08 0%, #1e4bd808 100%);
+            border-radius: 16px;
+        }
+
+        .boost-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .boost-flow {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .add-ons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .add-on-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .add-on-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .add-on-card.recommended {
+            border: 2px solid var(--primary);
+        }
+
+        .recommended-badge {
+            position: absolute;
+            top: 0;
+            right: 1rem;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .add-on-content {
+            margin-bottom: 1rem;
+        }
+
+        .add-on-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-on-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .add-on-metrics {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+
+        .metric {
+            flex: 1;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .add-on-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .add-on-price {
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .checkbox-wrapper {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .add-on-checkbox {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background-color: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-wrapper:hover .checkmark {
+            border-color: var(--primary);
+        }
+
+        .add-on-checkbox:checked ~ .checkmark {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 8px;
+            top: 4px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .add-on-checkbox:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .review-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .review-option {
+            position: relative;
+        }
+
+        .review-radio {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .review-label {
+            display: block;
+            padding: 1rem;
+            background: var(--bg-light);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .review-radio:checked + .review-label {
+            border-color: var(--primary);
+            background: #2962ff08;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .review-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .review-badge.fast {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .review-badge.standard {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .review-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .checkout-summary {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .summary-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .summary-items {
+            margin-bottom: 1rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        .checkout-button {
+            display: block;
+            width: 100%;
+            margin-top: 1rem;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .newsletter-options,
+        .featured-options,
+        .blog-options {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+
+        .newsletter-select,
+        .featured-select,
+        .blog-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .writing-service {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .writing-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .writing-info {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .add-ons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .boost-header {
+                padding: 1rem;
+                margin: 1rem 0 2rem;
+            }
+
+            .boost-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <button class="back-button" onclick="window.location.href='dashboard.html'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">SearchPal</div>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='submit.html'">Submit Another Tool</button>
+            <button class="btn btn-primary" onclick="window.location.href='dashboard.html'">Dashboard</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="boost-header">
+            <h1>Boost Your Tool's Visibility</h1>
+            <p class="section-subtitle">Enhance your listing's performance with these powerful upgrades</p>
+        </div>
+
+        <div class="boost-flow">
+            <section class="add-ons-section">
+                <div class="add-ons-grid">
+                    <!-- Do-follow Link -->
+                    <div class="add-on-card recommended">
+                        <div class="recommended-badge">Recommended</div>
+                        <div class="add-on-content">
+                            <div class="add-on-header">
+                                <div class="add-on-icon">🔗</div>
+                                <div>
+                                    <h3>Do-Follow Link</h3>
+                                    <p>Boost your SEO with a powerful do-follow backlink</p>
+                                </div>
+                            </div>
+                            <div class="add-on-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">DR 43</span>
+                                    <span class="metric-label">Domain Rating</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">100%</span>
+                                    <span class="metric-label">Link Juice</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-on-action">
+                            <div class="add-on-price">$39</div>
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="add-on-checkbox" data-price="39" data-name="Do-Follow Link">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Priority Review -->
+                    <div class="add-on-card">
+                        <div class="add-on-content">
+                            <div class="add-on-header">
+                                <div class="add-on-icon">⚡</div>
+                                <div>
+                                    <h3>Priority Review</h3>
+                                    <p>Get your updates reviewed faster</p>
+                                </div>
+                            </div>
+                            <div class="review-options">
+                                <div class="review-option">
+                                    <input type="radio" name="reviewOption" id="priority" class="review-radio" checked>
+                                    <label for="priority" class="review-label">
+                                        <div class="review-header">
+                                            <div class="review-title">
+                                                <span>Priority Review</span>
+                                                <span class="review-price">+$29</span>
+                                            </div>
+                                            <span class="review-badge fast">48 Hours</span>
+                                        </div>
+                                        <div class="review-description">
+                                            Get your updates reviewed and published within 48 hours
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="review-option">
+                                    <input type="radio" name="reviewOption" id="standard" class="review-radio">
+                                    <label for="standard" class="review-label">
+                                        <div class="review-header">
+                                            <div class="review-title">
+                                                <span>Standard Review</span>
+                                                <span class="review-price">Free</span>
+                                            </div>
+                                            <span class="review-badge standard">5 Days</span>
+                                        </div>
+                                        <div class="review-description">
+                                            Standard review process, takes up to 5 days
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Feature -->
+                    <div class="add-on-card">
+                        <div class="add-on-content">
+                            <div class="add-on-header">
+                                <div class="add-on-icon">📰</div>
+                                <div>
+                                    <h3>Newsletter Feature</h3>
+                                    <p>Get featured in our weekly newsletter</p>
+                                </div>
+                            </div>
+                            <div class="add-on-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">1k</span>
+                                    <span class="metric-label">Targeted Leads</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">25%</span>
+                                    <span class="metric-label">Open Rate</span>
+                                </div>
+                            </div>
+                            <div class="newsletter-options">
+                                <label for="newsletter-issues">Number of Issues:</label>
+                                <select id="newsletter-issues" class="newsletter-select" data-base-price="29">
+                                    <option value="1" data-discount="0">1 Issue ($29/issue)</option>
+                                    <option value="2" data-discount="10">2 Issues ($26/issue)</option>
+                                    <option value="4" data-discount="20">4 Issues ($23/issue)</option>
+                                    <option value="6" data-discount="30">6 Issues ($20/issue)</option>
+                                </select>
+                                <div class="newsletter-total">
+                                    Total: $<span id="newsletter-price">29</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-on-action">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="add-on-checkbox newsletter-checkbox" data-price="29" data-name="Newsletter Feature">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Featured Placement -->
+                    <div class="add-on-card">
+                        <div class="add-on-content">
+                            <div class="add-on-header">
+                                <div class="add-on-icon">⭐</div>
+                                <div>
+                                    <h3>Featured Placement</h3>
+                                    <p>Get premium visibility at the top of listings</p>
+                                </div>
+                            </div>
+                            <div class="add-on-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">5x</span>
+                                    <span class="metric-label">More Views</span>
+                                </div>
+                            </div>
+                            <div class="featured-options">
+                                <label for="featured-weeks">Duration:</label>
+                                <select id="featured-weeks" class="featured-select" data-base-price="49">
+                                    <option value="1" data-discount="0">1 Week ($49/week)</option>
+                                    <option value="2" data-discount="10">2 Weeks ($44/week)</option>
+                                    <option value="4" data-discount="20">4 Weeks ($39/week)</option>
+                                    <option value="8" data-discount="30">8 Weeks ($34/week)</option>
+                                </select>
+                                <div class="featured-total">
+                                    Total: $<span id="featured-price">49</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-on-action">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="add-on-checkbox featured-checkbox" data-price="49" data-name="Featured Placement">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Guest Blog Posts -->
+                    <div class="add-on-card">
+                        <div class="add-on-content">
+                            <div class="add-on-header">
+                                <div class="add-on-icon">📝</div>
+                                <div>
+                                    <h3>Guest Blog Posts</h3>
+                                    <p>High-quality blog posts with 2 do-follow links each</p>
+                                </div>
+                            </div>
+                            <div class="add-on-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">DR 43</span>
+                                    <span class="metric-label">Domain Rating</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">2x</span>
+                                    <span class="metric-label">Do-follow Links</span>
+                                </div>
+                            </div>
+                            <div class="blog-options">
+                                <label for="blog-count">Number of Blog Posts:</label>
+                                <select id="blog-count" class="blog-select" data-base-price="129">
+                                    <option value="1" data-discount="0">1 Post ($129/post)</option>
+                                    <option value="2" data-discount="10">2 Posts ($116/post)</option>
+                                    <option value="3" data-discount="20">3 Posts ($103/post)</option>
+                                    <option value="4" data-discount="30">4 Posts ($90/post)</option>
+                                </select>
+                                
+                                <div class="writing-service">
+                                    <label class="writing-checkbox-wrapper">
+                                        <input type="checkbox" id="writing-service" class="writing-checkbox">
+                                        <span class="checkmark"></span>
+                                        <span class="writing-label">SearchPal writing service (+$100/post)</span>
+                                    </label>
+                                    <div class="writing-info">
+                                        Just provide your two target links and anchor texts - we'll handle the rest
+                                    </div>
+                                </div>
+
+                                <div class="blog-total">
+                                    Total: $<span id="blog-price">129</span>
+                                </div>
+                                <div class="blog-info">
+                                    <i class="fas fa-info-circle"></i>
+                                    Send your blog posts to: <a href="mailto:hello@searchpal.com">hello@searchpal.com</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-on-action">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="add-on-checkbox blog-checkbox" data-price="129" data-name="Guest Blog Posts">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Banner Ad -->
+                    <div class="add-on-card">
+                        <div class="add-on-content">
+                            <div class="add-on-header">
+                                <div class="add-on-icon">🎯</div>
+                                <div>
+                                    <h3>Banner Ad</h3>
+                                    <p>Premium banner placement with enhanced visibility</p>
+                                </div>
+                            </div>
+                            <div class="add-on-metrics">
+                                <div class="metric">
+                                    <span class="metric-value">30k+</span>
+                                    <span class="metric-label">Impressions</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-value">5%</span>
+                                    <span class="metric-label">Click Rate</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-on-action">
+                            <div class="add-on-price">$199</div>
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" class="add-on-checkbox" data-price="199" data-name="Banner Ad">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="checkout-summary">
+                <div class="summary-content">
+                    <div class="summary-items" id="selected-addons">
+                        <!-- Selected add-ons will be listed here -->
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span id="total-price">$0.00</span>
+                    </div>
+                </div>
+                <button class="btn btn-primary checkout-button" onclick="window.location.href='dashboard.html'">
+                    Continue to Payment
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Initialize variables
+        const addOnCheckboxes = document.querySelectorAll('.add-on-checkbox');
+        const selectedAddonsContainer = document.getElementById('selected-addons');
+        const totalPriceElement = document.getElementById('total-price');
+        let priorityPrice = 29; // Default to Priority Review
+
+        // Update total price and selected items
+        function updateTotal() {
+            let total = priorityPrice;
+            selectedAddonsContainer.innerHTML = '';
+
+            // Add Priority Review to summary if selected
+            if (priorityPrice > 0) {
+                selectedAddonsContainer.innerHTML += `
+                    <div class="summary-item">
+                        <span>Priority Review</span>
+                        <span>$${priorityPrice.toFixed(2)}</span>
+                    </div>
+                `;
+            }
+
+            // Add other selected add-ons
+            addOnCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const price = parseFloat(checkbox.dataset.price);
+                    const name = checkbox.dataset.name;
+                    total += price;
+
+                    selectedAddonsContainer.innerHTML += `
+                        <div class="summary-item">
+                            <span>${name}</span>
+                            <span>$${price.toFixed(2)}</span>
+                        </div>
+                    `;
+                }
+            });
+
+            totalPriceElement.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Handle review option changes
+        const reviewRadios = document.querySelectorAll('.review-radio');
+        reviewRadios.forEach(radio => {
+            radio.addEventListener('change', function() {
+                priorityPrice = this.id === 'priority' ? 29 : 0;
+                updateTotal();
+            });
+        });
+
+        // Handle add-on checkbox changes
+        addOnCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotal);
+        });
+
+        // Newsletter pricing logic
+        const newsletterSelect = document.getElementById('newsletter-issues');
+        const newsletterPrice = document.getElementById('newsletter-price');
+        const newsletterCheckbox = document.querySelector('.newsletter-checkbox');
+
+        function updateNewsletterPrice() {
+            const basePrice = parseInt(newsletterSelect.dataset.basePrice);
+            const issues = parseInt(newsletterSelect.value);
+            const discount = parseInt(newsletterSelect.options[newsletterSelect.selectedIndex].dataset.discount);
+            
+            const pricePerIssue = basePrice * (1 - discount/100);
+            const totalPrice = Math.round(pricePerIssue * issues);
+            
+            newsletterPrice.textContent = totalPrice;
+            newsletterCheckbox.dataset.price = totalPrice;
+            
+            if (newsletterCheckbox.checked) {
+                updateTotal();
+            }
+        }
+
+        newsletterSelect.addEventListener('change', updateNewsletterPrice);
+
+        // Featured placement pricing logic
+        const featuredSelect = document.getElementById('featured-weeks');
+        const featuredPrice = document.getElementById('featured-price');
+        const featuredCheckbox = document.querySelector('.featured-checkbox');
+
+        function updateFeaturedPrice() {
+            const basePrice = parseInt(featuredSelect.dataset.basePrice);
+            const weeks = parseInt(featuredSelect.value);
+            const discount = parseInt(featuredSelect.options[featuredSelect.selectedIndex].dataset.discount);
+            
+            const pricePerWeek = basePrice * (1 - discount/100);
+            const totalPrice = Math.round(pricePerWeek * weeks);
+            
+            featuredPrice.textContent = totalPrice;
+            featuredCheckbox.dataset.price = totalPrice;
+            
+            if (featuredCheckbox.checked) {
+                updateTotal();
+            }
+        }
+
+        featuredSelect.addEventListener('change', updateFeaturedPrice);
+
+        // Blog posts pricing logic
+        const blogSelect = document.getElementById('blog-count');
+        const blogPrice = document.getElementById('blog-price');
+        const blogCheckbox = document.querySelector('.blog-checkbox');
+        const writingService = document.getElementById('writing-service');
+
+        function updateBlogPrice() {
+            const basePrice = parseInt(blogSelect.dataset.basePrice);
+            const count = parseInt(blogSelect.value);
+            const discount = parseInt(blogSelect.options[blogSelect.selectedIndex].dataset.discount);
+            
+            const pricePerPost = basePrice * (1 - discount/100);
+            let totalPrice = Math.round(pricePerPost * count);
+            
+            if (writingService.checked) {
+                totalPrice += (100 * count);
+            }
+            
+            blogPrice.textContent = totalPrice;
+            blogCheckbox.dataset.price = totalPrice;
+            
+            if (blogCheckbox.checked) {
+                updateTotal();
+            }
+        }
+
+        blogSelect.addEventListener('change', updateBlogPrice);
+        writingService.addEventListener('change', updateBlogPrice);
+
+        // Initialize the total
+        updateTotal();
+    </script>
+</body>
+</html> 

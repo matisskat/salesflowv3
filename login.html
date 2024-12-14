@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - SearchPal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <button class="back-button" onclick="window.location.href='index.html'">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <div class="logo" onclick="window.location.href='index.html'" style="cursor: pointer;">SearchPal</div>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='submit.html'">Submit a Tool</button>
+            <button class="btn btn-primary" onclick="window.location.href='login.html'">Sign in</button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="login-container">
+            <div class="login-card card">
+                <h1>Welcome Back</h1>
+                <p class="login-subtitle">Sign in to manage your tool listings</p>
+
+                <form class="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="you@company.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Enter your password">
+                        <div class="forgot-password">
+                            <a href="#">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary login-button">Sign In</button>
+
+                    <div class="signup-prompt">
+                        <p>Don't have an account? <a href="submit.html">Submit your tool</a> to get started</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.querySelector('.login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real application, you would validate credentials here
+            // For this demo, we'll just redirect to the dashboard
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+
+    <style>
+        .login-container {
+            max-width: 480px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .login-card {
+            padding: 3rem;
+        }
+
+        .login-subtitle {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-form {
+            margin-top: 2rem;
+        }
+
+        .login-button {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .forgot-password a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password a:hover {
+            color: var(--primary);
+        }
+
+        .signup-prompt {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .signup-prompt a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-prompt a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 2rem auto;
+            }
+
+            .login-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</body>
+</html> 
